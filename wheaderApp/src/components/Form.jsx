@@ -1,30 +1,31 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
+import {  } from "./style.css";
 
-function Form() {
-  const [info, setInfo] = useState([]);
+function Form({ setInfo,setState }) {
   const [city, setCity] = useState("");
 
-  const handleChange = (e) => {
+  const handleChange = async (e) => {
     e.preventDefault();
     const api = "a887f516fffa6041d9403f2d25eaf7fe";
     const baseURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${api}&units=metric&lang=tr`;
+      setState(true)
+    try {
+      const response = await axios(baseURL);
+      setInfo(response.data);
+    } catch (error) {
+      console.error("API call error:", error);
+    }
 
-    axios(baseURL)
-      .then((res) => setInfo(res.data))
-      .catch((error) => console.error("API call error:", error));
   };
-
-  useEffect(() => {
-    console.log(info);
-  }, [info]);
 
   return (
     <div>
       <h1>Hava Durumu</h1>
       <form onSubmit={handleChange}>
         <div>
-          <input
+          <input 
+          className="inputText"
             type="text"
             placeholder="şehri giriniz"
             onChange={(e) => setCity(e.target.value)}
