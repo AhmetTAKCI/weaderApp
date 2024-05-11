@@ -33,7 +33,7 @@ function Form({ setInfo,setState }) {
         </div>
         <div className="btnDiv">
           <button type="submit" className="btn">
-            Verileri Getir
+            Verileri Getir. 
           </button>
         </div>
       </form>
